@@ -1,0 +1,9 @@
+{
+  "name": "backend-tuto",
+  "version": "1.0.0",
+  "description": "Backend simple pour tutoriel",
+  "main": "server.js",
+  "dependencies": {
+    "mysql2": "^3.6.5"
+  }
+}
