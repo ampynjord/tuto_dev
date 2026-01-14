@@ -35,7 +35,7 @@ tuto_dev/
 ## Démarrage rapide
 
 ### 1. Installer les outils
-- **Docker Desktop** : pour faire tourner les conteneurs
+- **Docker** : pour faire tourner les conteneurs (**Docker Desktop** sur Windows)
 - **Git** : pour versionner ton code
 
 ### 2. Cloner ou initialiser le projet
