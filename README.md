@@ -136,6 +136,7 @@ Ouvre **http://localhost** et clique sur les boutons !
 ```bash
 # Tester le status de l'API
 curl http://localhost/api/status
+```
 
 ## Git : Versionner ton code
 
