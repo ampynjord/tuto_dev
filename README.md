@@ -5,7 +5,7 @@ Un projet simple pour apprendre Docker + Nginx + Node.js + MySQL + Git
 ## Ce qu'on va faire
 
 - Un **site web** (HTML/CSS/JS séparés)
-- Une **API** en Node.js (1 seul fichier !)
+- Une **API** en Node.js
 - Une **base de données** MySQL
 - Le tout avec **Docker** et **Nginx** comme reverse proxy
 - Versionner le code avec **Git**
