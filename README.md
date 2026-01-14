@@ -53,12 +53,29 @@ git add .
 git commit -m "Initial commit"
 ```
 
-### 3. Lancer le projet
+### 3. Configurer les variables d'environnement
+
+Copie le fichier d'exemple et modifie-le si nécessaire :
+
+```bash
+cp .env.example .env
+```
+
+Le fichier `.env` contient :
+- **DB_USER** : utilisateur MySQL (par défaut : root)
+- **DB_PASSWORD** : mot de passe MySQL (par défaut : secret)
+- **DB_NAME** : nom de la base de données (par défaut : tuto_db)
+- **DB_HOST** : hôte MySQL (par défaut : mysql)
+- **DB_PORT** : port MySQL (par défaut : 3306)
+
+**Important :** Le fichier `.env` est dans `.gitignore` et ne sera pas versionné (il peut contenir des secrets).
+
+### 4. Lancer le projet
 ```bash
 docker-compose up
 ```
 
-### 4. Tester l'application
+### 5. Tester l'application
 Ouvre ton navigateur : **http://localhost**
 
 ## Comment ça marche ?
