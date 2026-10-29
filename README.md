@@ -1,96 +1,96 @@
-# Tutoriel : Application Web avec Docker
+# Tutorial: Web application with Docker
 
-Un projet simple pour apprendre Docker + Nginx + Node.js + MySQL + Git
+A simple project to learn Docker + Nginx + Node.js + MySQL + Git
 
-## Ce qu'on va faire
+## What we are going to do
 
-- Un **site web** (HTML/CSS/JS séparés)
-- Une **API** en Node.js
-- Une **base de données** MySQL
-- Le tout avec **Docker** et **Nginx** comme reverse proxy
-- Versionner le code avec **Git**
+- A **website** (separate HTML/CSS/JS)
+- A **Node.js API**
+- A **MySQL database**
+- All of it with **Docker** and **Nginx** as a reverse proxy
+- Version the code with **Git**
 
-## Structure du projet
+## Project structure
 
 ```
 tuto_dev/
-├── docker-compose.yml          # Configuration Docker (IMPORTANT !)
+├── docker-compose.yml          # Docker configuration (IMPORTANT!)
 │
 ├── nginx/
-│   └── default.conf            # Configuration du reverse proxy (9 lignes)
+│   └── default.conf            # Reverse proxy configuration (9 lines)
 │
-├── frontend/                   # Site web
-│   ├── index.html             # Structure HTML
-│   ├── style.css              # Design CSS
-│   └── app.js                 # Logique JavaScript
+├── frontend/                   # Website
+│   ├── index.html             # HTML structure
+│   ├── style.css              # CSS design
+│   └── app.js                 # JavaScript logic
 │
-├── backend/                    # API Node.js
-│   ├── server.js              # Code serveur (50 lignes)
-│   └── package.json           # Dépendances
+├── backend/                    # Node.js API
+│   ├── server.js              # Server code (50 lines)
+│   └── package.json           # Dependencies
 │
 └── mysql/
-    └── init.sql               # Base de données initiale (3 users)
+    └── init.sql               # Initial database (3 users)
 ```
 
-## Démarrage rapide
+## Quick start
 
-### 1. Installer les outils
-- **Docker** : pour faire tourner les conteneurs (**Docker Desktop** sur Windows)
-- **Git** : pour versionner ton code
+### 1. Install the tools
+- **Docker**: to run the containers (**Docker Desktop** on Windows)
+- **Git**: to version your code
 
-### 2. Cloner ou initialiser le projet
+### 2. Clone or initialize the project
 
-**Si tu clones depuis GitHub :**
+**If you clone from GitHub:**
 ```bash
-git clone <url-du-repo>
+git clone <repo-url>
 cd tuto_dev
 ```
 
-**Si c'est un nouveau projet :**
+**If it is a new project:**
 ```bash
 git init
 git add .
 git commit -m "Initial commit"
 ```
 
-### 3. Configurer les variables d'environnement
+### 3. Configure the environment variables
 
-Copie le fichier d'exemple et modifie-le si nécessaire :
+Copy the example file and edit it if needed:
 
 ```bash
 cp .env.example .env
 ```
 
-Le fichier `.env` contient :
-- **DB_USER** : utilisateur MySQL (par défaut : root)
-- **DB_PASSWORD** : mot de passe MySQL (par défaut : secret)
-- **DB_NAME** : nom de la base de données (par défaut : tuto_db)
-- **DB_HOST** : hôte MySQL (par défaut : mysql)
-- **DB_PORT** : port MySQL (par défaut : 3306)
+The `.env` file contains:
+- **DB_USER**: MySQL user (default: root)
+- **DB_PASSWORD**: MySQL password (default: secret)
+- **DB_NAME**: database name (default: tuto_db)
+- **DB_HOST**: MySQL host (default: mysql)
+- **DB_PORT**: MySQL port (default: 3306)
 
-**Important :** Le fichier `.env` est dans `.gitignore` et ne sera pas versionné (il peut contenir des secrets).
+**Important:** the `.env` file is in `.gitignore` and will not be versioned (it may contain secrets).
 
-### 4. Lancer le projet
+### 4. Run the project
 ```bash
 docker-compose up
 ```
 
-### 5. Tester l'application
-Ouvre ton navigateur : **http://localhost**
+### 5. Test the application
+Open your browser: **http://localhost**
 
-## Comment ça marche ?
+## How does it work?
 
-### Les 4 conteneurs Docker
+### The 4 Docker containers
 
-1. **nginx** (port 80) → Point d'entrée, redirige les requêtes
-2. **frontend** → Sert les fichiers HTML/CSS/JS
-3. **backend** → API Node.js qui communique avec MySQL
-4. **mysql** → Base de données avec 3 utilisateurs de test
+1. **nginx** (port 80) → entry point, routes the requests
+2. **frontend** → serves the HTML/CSS/JS files
+3. **backend** → Node.js API that talks to MySQL
+4. **mysql** → database with 3 test users
 
-### Le flux de données
+### Data flow
 
 ```
-Navigateur web (http://localhost)
+Web browser (http://localhost)
            ↓
     Nginx (port 80)
            ↓
@@ -98,152 +98,147 @@ Navigateur web (http://localhost)
     │                    ↓
     └─ "/api/*" ───→ Backend (Node.js)
                          ↓
-                    MySQL (base de données)
+                    MySQL (database)
 ```
 
-## Commandes Docker utiles
+## Useful Docker commands
 
 ```bash
-# Démarrer les conteneurs
+# Start the containers
 docker-compose up
 
-# Démarrer en arrière-plan (detached)
+# Start in the background (detached)
 docker-compose up -d
 
-# Voir les logs en temps réel
+# Follow the logs in real time
 docker-compose logs -f
 
-# Arrêter les conteneurs
+# Stop the containers
 docker-compose down
 
-# Tout supprimer (conteneurs + base de données)
+# Remove everything (containers + database)
 docker-compose down -v
 
-# Redémarrer un seul conteneur
+# Restart a single container
 docker-compose restart frontend
 docker-compose restart backend
 
-# Voir l'état des conteneurs
+# See the containers' state
 docker-compose ps
 ```
 
-## Tester l'API directement
+## Testing the API directly
 
-### Via le navigateur
-Ouvre **http://localhost** et clique sur les boutons !
+### In the browser
+Open **http://localhost** and click the buttons!
 
-### Via la ligne de commande
+### From the command line
 ```bash
-# Tester le status de l'API
+# Test the API status
 curl http://localhost/api/status
 ```
 
-## Git : Versionner ton code
+## Git: versioning your code
 
-### Initialiser Git dans le projet
+### Initialize Git in the project
 
 ```bash
-# Se placer dans le dossier du projet
+# Go to the project folder
 cd tuto_dev
 
-# Initialiser Git
+# Initialize Git
 git init
 
-# Ajouter tous les fichiers
+# Add all files
 git add .
 
-# Créer le premier commit
-git commit -m "Initial commit: projet Docker simple
-# Ajouter tous les fichiers
-git add .
-
-# Créer le premier commit
-git commit -m "Premier commit : projet Docker complet"
+# Create the first commit
+git commit -m "Initial commit: simple Docker project"
 ```
 
-### Commandes Git essentielles
+### Essential Git commands
 
 ```bash
-# Voir l'état des fichiers
+# See the state of the files
 git status
 
-# Voir l'historique
+# See the history
 git log --oneline
 
-# Ajouter des fichiers modifiés
+# Add modified files
 git add .
 
-# Créer un commit
-git commit -m "Description de tes changements"
+# Create a commit
+git commit -m "Description of your changes"
 
-# Voir les différences
+# See the differences
 git diff
 ```
 
-### Pousser sur GitHub via les commandes
+### Pushing to GitHub from the command line
 
 ```bash
-# 1. Créer un repo sur GitHub (dans ton navigateur)
+# 1. Create a repository on GitHub (in your browser)
 
-# 2. Lier ton projet local à GitHub
-git remote add origin https://github.com/TON-PSEUDO/tuto_dev.git
+# 2. Link your local project to GitHub
+git remote add origin https://github.com/YOUR-USERNAME/tuto_dev.git
 
-# 3. Pousser ton code
+# 3. Push your code
 git branch -M main
 git push -u origin main
 ```
 
-### Workflow typique
+### Typical workflow
 
 ```bash
-# 1. Modifier des fichiers (ex: backend/server.js)
+# 1. Edit files (e.g. backend/server.js)
 
-# 2. Voir ce qui a changé
+# 2. See what changed
 git status
 git diff
 
-# 3. Ajouter et committer
+# 3. Add and commit
 git add .
-git commit -m "Ajout d'une nouvelle route API"
+git commit -m "Add a new API route"
 
-# 4. Pousser sur GitHub
+# 4. Push to GitHub
 git push
 ```
 
 ### Branches
 
 ```bash
-# Créer une nouvelle branche
-git checkout -b ma-nouvelle-feature
+# Create a new branch
+git checkout -b my-new-feature
 
-# Faire des modifs et committer
+# Make changes and commit
 git add .
-git commit -m "Test d'une nouvelle fonctionnalité"
+git commit -m "Try a new feature"
 
-# Revenir sur la branche principale
+# Go back to the main branch
 git checkout main
 
-# Fusionner ta branche
-git merge ma-nouvelle-feature
+# Merge your branch
+git merge my-new-feature
 ```
 
-## Points clés à retenir
+## Key points to remember
 
 ### Infrastructure
-- **Nginx** : reverse proxy qui redirige les requêtes avec le fichier de configuration **default.conf**
-- **Docker Compose** : orchestre plusieurs conteneurs avec **docker-compose.yml** qui définit tous les services (frontend, backend, mysql, nginx)  
-- **Volumes** : persiste les données MySQL même si tu supprimes les conteneurs  
-- **Networks** : permet aux conteneurs de communiquer entre eux  
+- **Nginx**: reverse proxy that routes requests using the **default.conf** configuration file
+- **Docker Compose**: orchestrates several containers with **docker-compose.yml**, which defines all the services (frontend, backend, mysql, nginx)
+- **Volumes**: persist the MySQL data even if you delete the containers
+- **Networks**: let the containers talk to each other
 
-### Architecture Web
-- **Frontend** : 3 fichiers séparés : **index.html**, **style.css** et **app.js**
-- **Backend** : 1 fichier **server.js** avec les routes de l'API
-- **API REST** : communication en JSON entre frontend et backend  
-- **MySQL** : base de données relationnelle pour stocker les données initialisée avec le fichier **init.sql**
+### Web architecture
+- **Frontend**: 3 separate files: **index.html**, **style.css** and **app.js**
+- **Backend**: 1 **server.js** file with the API routes
+- **REST API**: JSON communication between frontend and backend
+- **MySQL**: relational database to store data, initialized with the **init.sql** file
 
 ### Git
-- **git init** : crée un dépôt Git  
-- **git add .** : prépare tous les fichiers modifiés  
-- **git commit -m "message"** : sauvegarde un snapshot  
-- **git push** : envoie sur GitHub  
-- **.gitignore** : ignore node_modules, .env, etc...  
+- **git init**: creates a Git repository
+- **git add .**: stages all modified files
+- **git commit -m "message"**: saves a snapshot
+- **git push**: sends to GitHub
+- **.gitignore**: ignores node_modules, .env, etc.
